@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Search
+{% endblock page_title %}
+
+
+{% block content %}
+
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+
+<form class="flex mb-2" method="GET"> 
+  <input class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name='name' placeholder="Search Movie, Book or Person" />
+  <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white ml-2 py-2 px-4 border border-blue-500 hover:border-transparent rounded">Search</button>
+</form>
+
+<div class="block text-gray-700 text-sm font-bold mb-5 mt-10">Categories</div>
+<div class="inline-block relative w-full flex flex-wrap">
+  
+{% for category in categories %}
+  <div class="bg-orange-400 text-white px-5 shadow-md py-2 rounded-full mb-2 mr-2">
+    <a href="{%url 'genres:categories' category.pk%}">{{category.name}}</a>
+  </div>
+{% endfor %}
+  <br/>
+  {%if people%}
+    <div>
+      <h3>PERSON</h3>
+      {%for person in people%}
+        <h4><a href='{%url 'people:person' person.pk%}'>{{person.name}}</a></h4>
+      {%endfor%}
+    </div>
+    <br/>
+  {%elif movies%}
+    <div>
+      <h3>MOVIE</h3>
+      {%for movie in movies%}
+        <h4><a href='{%url 'movies:movie' movie.pk%}'>{{movie.title}}</a></h4>
+      {%endfor%}
+    </div>
+    <br/>
+  {%elif books%}
+    <div>
+      <h3>BOOK</h3>
+      {%for book in books%}
+        <h4><a href='{%url 'books:book' book.pk%}'>{{book.title}}</a></h4>
+      {%endfor%}
+    </div>
+    <br/>
+  {%endif%}
+  
+</div>
+
+{% endblock content %}
